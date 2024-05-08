@@ -11,7 +11,10 @@ class JulkaPage extends StatelessWidget {
       body: Container(
           child: Image(
             image: AssetImage("lib/assets/CAMERA-VIEW-SCREEN.jpg"),
-            // fit: BoxFit.cover,
+            fit: BoxFit.cover,
+            height: double.infinity,
+            width: double.infinity,
+            alignment: Alignment.center,
           ),
       ),
     );
