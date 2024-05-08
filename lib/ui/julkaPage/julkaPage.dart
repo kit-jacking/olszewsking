@@ -6,21 +6,13 @@ class JulkaPage extends StatelessWidget {
   final String title;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(title),
-      ),
-      body: const Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text("Powodzenia Julka! :)"),
-            ],
+      body: Container(
+          child: Image(
+            image: AssetImage("lib/assets/CAMERA-VIEW-SCREEN.jpg"),
+            // fit: BoxFit.cover,
           ),
-        ),
       ),
     );
   }
