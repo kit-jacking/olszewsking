@@ -60,6 +60,9 @@ flutter:
   uses-material-design: true
   assets:
     - lib/assets/CAMERA-VIEW-SCREEN.jpg
+    - lib/assets/antique-961102_1280.png
+    - lib/assets/chair-4281511_1280.png
+    - lib/assets/table-lamp-2320604_1280.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
