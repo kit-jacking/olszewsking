@@ -50,6 +50,13 @@ class MainPage extends StatelessWidget {
                                 .add(RedirectRouterEvent("/julka"))
                           },
                       child: Text("Strona Julki")),
+                  // ElevatedButton(
+                  //     onPressed: () => {
+                  //       context
+                  //           .read<RouterBloc>()
+                  //           .add(RedirectRouterEvent("/tymon"))
+                  //     },
+                  //     child: Text("Strona Tymona")),
                 ],
               ),
             ),

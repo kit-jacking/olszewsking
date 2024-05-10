@@ -5,6 +5,7 @@ import 'package:decoartor/ui/adamPage/adamPage.dart';
 import 'package:decoartor/ui/igorPage/igorPage.dart';
 import 'package:decoartor/ui/julkaPage/julkaPage.dart';
 import 'package:decoartor/ui/mainPage/mainPage.dart';
+import 'package:decoartor/ui/tymonPage/tymonPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
           '/igor': (context) => const IgorPage(title: "Igor page"),
           '/adam': (context) => AdamPage(title: "Adam page"),
           '/julka': (context) => const JulkaPage(title: "Julka page"),
+          '/tymon': (context) => const TymonPage(title: "Ar object"),
         },
       ),
     );
