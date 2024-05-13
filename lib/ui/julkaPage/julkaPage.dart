@@ -74,6 +74,33 @@ class _JulkaPageState extends State<JulkaPage> {
             ),
           ),
           Positioned(
+            left: _xPosition + initialXPosition,
+            top: _yPosition + initialYPosition,
+            child: Container(
+              width: modelWidth,
+              height: modelHeight,
+              child: Stack(
+                children: [
+                  Container(
+                    width: modelWidth,
+                    height: modelHeight,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black, width: 2),
+                    ),
+                  ),
+                  // ModelViewer
+                  ModelViewer(
+                    src: 'lib/assets/objects/chair/chair_paint.glb',
+                    alt: 'chair model',
+                    scale: '$_scale $_scale $_scale',
+                    cameraControls: isRotateMode,
+                  ),
+                  Text("  isRotateMode: ${isRotateMode}")
+                ],
+              ),
+            ),
+          ),
+          Positioned(
             left: 32,
             top: 16,
             child: Row(
@@ -84,7 +111,7 @@ class _JulkaPageState extends State<JulkaPage> {
                   onPressed: () {
                     setState(() {
                       isTranslateMode = true;
-                      isRotateMode = !isRotateMode;
+                      isRotateMode = false;
                       isScaleMode = false; // Disable scale mode when switching modes
                     });
                   },
@@ -133,33 +160,6 @@ class _JulkaPageState extends State<JulkaPage> {
                     handleScaleUpdate(value);
                   },
                 ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: _xPosition + initialXPosition,
-            top: _yPosition + initialYPosition,
-            child: Container(
-              width: modelWidth,
-              height: modelHeight,
-              child: Stack(
-                children: [
-                  Container(
-                    width: modelWidth,
-                    height: modelHeight,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 2),
-                    ),
-                  ),
-                  // ModelViewer
-                  ModelViewer(
-                    src: 'lib/assets/objects/chair/chair_paint.glb',
-                    alt: 'chair model',
-                    scale: '$_scale $_scale $_scale',
-                    cameraControls: isRotateMode,
-                  ),
-                  Text("  isRotateMode: ${isRotateMode}")
-                ],
               ),
             ),
           ),
