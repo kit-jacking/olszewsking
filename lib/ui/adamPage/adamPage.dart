@@ -17,9 +17,9 @@ class AdamPage extends StatelessWidget {
     'Niebylejaki stolik z solidnego drewna. Nadaje się doskonale do kawy albo do gry w brydża, ale żetony do pokera już się na nim nie zmieszczą.'
   ];
   final List<String> images = <String>[
-    "lib/assets/chair-4281511_1280.png",
-    "lib/assets/table-lamp-2320604_1280.png",
-    "lib/assets/antique-961102_1280.png"
+    "lib/assets/images/chair-4281511_1280.png",
+    "lib/assets/images/table-lamp-2320604_1280.png",
+    "lib/assets/images/antique-961102_1280.png"
   ];
 
   void addItem() {

@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   flutter_bloc: ^8.1.5
   fluttertoast: ^8.2.5
+  model_viewer_plus:
 
 dev_dependencies:
   flutter_test:
@@ -59,10 +60,11 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - lib/assets/CAMERA-VIEW-SCREEN.jpg
-    - lib/assets/antique-961102_1280.png
-    - lib/assets/chair-4281511_1280.png
-    - lib/assets/table-lamp-2320604_1280.png
+    - lib/assets/images/CAMERA-VIEW-SCREEN.jpg
+    - lib/assets/images/antique-961102_1280.png
+    - lib/assets/images/chair-4281511_1280.png
+    - lib/assets/images/table-lamp-2320604_1280.png
+    - lib/assets/objects/chair/chair_paint.glb
 
   # To add assets to your application, add an assets section, like this:
   # assets:
