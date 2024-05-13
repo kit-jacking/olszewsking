@@ -16,10 +16,10 @@ class _JulkaPageState extends State<JulkaPage> {
   double _minScale = 0.1; // Minimal scale value
   double _maxScale = 1.2; // Maximal scale value
 
+  bool stateRotate = false;
   bool isTranslateMode = true;
   bool isRotateMode = false;
   bool isScaleMode = false;
-  bool cameraState = false;
 
   double _xPosition = 0;
   double _yPosition = 0;
@@ -31,13 +31,14 @@ class _JulkaPageState extends State<JulkaPage> {
         _yPosition += details.delta.dy;
       });
     } else if (isRotateMode) {
-      setState(() {});
+      setState(() {
+        stateRotate = true;
+      });
     }
   }
 
   void handleScaleUpdate(double value) {
     setState(() {
-      // Limit the scale value to be within the allowed range
       _scale = value.clamp(_minScale, _maxScale);
     });
   }
@@ -93,9 +94,9 @@ class _JulkaPageState extends State<JulkaPage> {
                     src: 'lib/assets/objects/chair/chair_paint.glb',
                     alt: 'chair model',
                     scale: '$_scale $_scale $_scale',
-                    cameraControls: isRotateMode,
+                    cameraControls: isRotateMode && stateRotate,
                   ),
-                  Text("  isRotateMode: ${isRotateMode}")
+                  Text("  isRotateMode: ${isRotateMode}, \n  stateRotate: ${stateRotate}")
                 ],
               ),
             ),
