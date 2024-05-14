@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 
 class JulkaPage extends StatefulWidget {
@@ -67,8 +68,8 @@ class _JulkaPageState extends State<JulkaPage> {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                      "lib/assets/images/CAMERA-VIEW_wo_icons.jpg"),
+                  image:
+                      AssetImage("lib/assets/images/CAMERA-VIEW_wo_icons.jpg"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -94,9 +95,10 @@ class _JulkaPageState extends State<JulkaPage> {
                     src: 'lib/assets/objects/chair/chair_paint.glb',
                     alt: 'chair model',
                     scale: '$_scale $_scale $_scale',
-                    cameraControls: isRotateMode && stateRotate,
+                    cameraControls: true,
                   ),
-                  Text("  isRotateMode: ${isRotateMode}, \n  stateRotate: ${stateRotate}")
+                  Text(
+                      "  isRotateMode: ${isRotateMode}, \n  stateRotate: ${stateRotate}")
                 ],
               ),
             ),
@@ -105,46 +107,59 @@ class _JulkaPageState extends State<JulkaPage> {
             left: 32,
             top: 16,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                FloatingActionButton(
-                  onPressed: () {
-                    setState(() {
-                      isTranslateMode = true;
-                      isRotateMode = false;
-                      isScaleMode = false; // Disable scale mode when switching modes
-                    });
-                  },
-                  backgroundColor: isTranslateMode ? Colors.green : null,
-                  child: Icon(Icons.compare_arrows),
-                ),
-                SizedBox(width: 32),
-                FloatingActionButton(
-                  onPressed: () {
-                    setState(() {
-                      isTranslateMode = false;
-                      isRotateMode = true;
-                      isScaleMode = false; // Disable scale mode when switching modes
-                    });
-                  },
-                  backgroundColor: isRotateMode ? Colors.green : null,
-                  child: Icon(Icons.rotate_90_degrees_ccw),
-                ),
-                SizedBox(width: 32),
-                FloatingActionButton(
-                  onPressed: () {
-                    setState(() {
-                      isTranslateMode = false;
-                      isRotateMode = false;
-                      isScaleMode = true;
-                    });
-                  },
-                  backgroundColor: isScaleMode ? Colors.green : null,
-                  child: Icon(Icons.zoom_out_map),
-                ),
-              ],
-            ),
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FloatingActionButton(
+                    onPressed: () {
+                      setState(() {
+                        isTranslateMode = true;
+                        isRotateMode = false;
+                        isScaleMode =
+                            false; // Disable scale mode when switching modes
+                      });
+                    },
+                    backgroundColor: isTranslateMode ? Colors.green : null,
+                    child: SvgPicture.asset(
+                      'lib/assets/icons/move.svg',
+                      width: 24,
+                      height: 24,
+                    ),
+                  ),
+                  SizedBox(width: 32),
+                  FloatingActionButton(
+                    onPressed: () {
+                      setState(() {
+                        isTranslateMode = false;
+                        isRotateMode = true;
+                        isScaleMode =
+                            false; // Disable scale mode when switching modes
+                      });
+                    },
+                    backgroundColor: isRotateMode ? Colors.green : null,
+                    child: SvgPicture.asset(
+                      'lib/assets/icons/rotate.svg',
+                      width: 24,
+                      height: 24,
+                    ),
+                  ),
+                  SizedBox(width: 32),
+                  FloatingActionButton(
+                    onPressed: () {
+                      setState(() {
+                        isTranslateMode = false;
+                        isRotateMode = false;
+                        isScaleMode = true;
+                      });
+                    },
+                    backgroundColor: isScaleMode ? Colors.green : null,
+                    child: SvgPicture.asset(
+                      'lib/assets/icons/resize.svg',
+                      width: 24,
+                      height: 24,
+                    ),
+                  ),
+                ]),
           ),
           Visibility(
             visible: isScaleMode, // Only show slider when isScaleMode is true

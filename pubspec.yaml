@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   flutter_bloc: ^8.1.5
   fluttertoast: ^8.2.5
+  flutter_svg: ^0.22.0
   model_viewer_plus:
 
 dev_dependencies:
@@ -65,6 +66,9 @@ flutter:
     - lib/assets/images/antique-961102_1280.png
     - lib/assets/images/chair-4281511_1280.png
     - lib/assets/images/table-lamp-2320604_1280.png
+    - lib/assets/icons/move.svg
+    - lib/assets/icons/resize.svg
+    - lib/assets/icons/rotate.svg
     - lib/assets/objects/chair/chair_paint.glb
 
   # To add assets to your application, add an assets section, like this:
