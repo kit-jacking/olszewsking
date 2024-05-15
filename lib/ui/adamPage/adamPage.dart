@@ -1,5 +1,7 @@
+import 'package:decoartor/common/bloc/FurnitureBloc.dart';
 import 'package:decoartor/common/utils/toastUtils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AdamPage extends StatelessWidget {
   AdamPage({super.key, required this.title});
@@ -32,79 +34,88 @@ class AdamPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Lista mebli'),
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-          child: ListView(
-            children: [
-              for (var i = 0; i < entries.length; i++)
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border(
-                      bottom: BorderSide(color: Colors.black),
+    return BlocListener<FurnitureBloc, FurnitureState>(
+      listener: (context, state) {
+        print("Furniture list length: ${state.furnitureList.length}");
+        print(state.furnitureList);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: const Text('Lista mebli'),
+        ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+            child: ListView(
+              children: [
+                for (var i = 0; i < entries.length; i++)
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border(
+                        bottom: BorderSide(color: Colors.black),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(Icons.circle_rounded,
+                            color: Theme.of(context).primaryColor),
+                        Image.asset('${images[i]}',
+                            height: MediaQuery.of(context).size.width / 4,
+                            width: MediaQuery.of(context).size.width / 4),
+                        Container(
+                          padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                          width: MediaQuery.of(context).size.width / 3,
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                                child: Text('${entries[i]}',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold)),
+                              ),
+                              Text(
+                                '${description[i]}',
+                                style: TextStyle(fontSize: 15),
+                                textAlign: TextAlign.left,
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                          child: Column(
+                            children: [
+                              FloatingActionButton(
+                                onPressed: () {
+                                  addItem();
+                                  context.read<FurnitureBloc>().add(
+                                      FurnitureEventAddPieceOfFurniture(
+                                          "Simple/Piece/Of/Furniture${i}"));
+                                },
+                                backgroundColor: Colors.greenAccent,
+                                child: Icon(Icons.add),
+                              ),
+                              FloatingActionButton(
+                                onPressed: () {
+                                  removeItem();
+                                },
+                                backgroundColor: Colors.redAccent,
+                                child: Icon(Icons.close),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(Icons.circle_rounded,
-                          color: Theme.of(context).primaryColor),
-                      Image.asset('${images[i]}',
-                          height: MediaQuery.of(context).size.width / 4,
-                          width: MediaQuery.of(context).size.width / 4),
-                      Container(
-                        padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                        width: MediaQuery.of(context).size.width / 3,
-                        child: Column(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                              child: Text('${entries[i]}',
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                            Text(
-                              '${description[i]}',
-                              style: TextStyle(fontSize: 15),
-                              textAlign: TextAlign.left,
-                            )
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                        child: Column(
-                          children: [
-                            FloatingActionButton(
-                              onPressed: () {
-                                addItem();
-                              },
-                              backgroundColor: Colors.greenAccent,
-                              child: Icon(Icons.add),
-                            ),
-                            FloatingActionButton(
-                              onPressed: () {
-                                removeItem();
-                              },
-                              backgroundColor: Colors.redAccent,
-                              child: Icon(Icons.close),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

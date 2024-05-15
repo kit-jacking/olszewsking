@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:decoartor/common/bloc/FurnitureBloc.dart';
 import 'package:decoartor/common/bloc/RouterBloc.dart';
 import 'package:decoartor/ui/adamPage/adamPage.dart';
 import 'package:decoartor/ui/igorPage/igorPage.dart';
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (BuildContext context) => RouterBloc(),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => FurnitureBloc(),
         ),
       ],
       child: MaterialApp(

@@ -1,5 +1,7 @@
+import 'package:decoartor/common/bloc/FurnitureBloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 
@@ -55,131 +57,137 @@ class _JulkaPageState extends State<JulkaPage> {
     double initialXPosition = (screenWidth - screenWidth) / 2;
     double initialYPosition = (screenHeight - screenHeight) / 2;
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Stack(
-        children: [
-          GestureDetector(
-            onPanUpdate: handlePanUpdate,
-            behavior: HitTestBehavior.opaque,
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image:
-                      AssetImage("lib/assets/images/CAMERA-VIEW_wo_icons.jpg"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: _xPosition + initialXPosition,
-            top: _yPosition + initialYPosition,
-            child: Container(
-              width: modelWidth,
-              height: modelHeight,
-              child: Stack(
-                children: [
-                  Container(
-                    width: modelWidth,
-                    height: modelHeight,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 2),
-                    ),
-                  ),
-                  // ModelViewer
-                  ModelViewer(
-                    src: 'lib/assets/objects/chair/chair_paint.glb',
-                    alt: 'chair model',
-                    scale: '$_scale $_scale $_scale',
-                    cameraControls: true,
-                  ),
-                  Text(
-                      "  isRotateMode: ${isRotateMode}, \n  stateRotate: ${stateRotate}")
-                ],
-              ),
-            ),
-          ),
-          Positioned(
-            left: 32,
-            top: 16,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  FloatingActionButton(
-                    onPressed: () {
-                      setState(() {
-                        isTranslateMode = true;
-                        isRotateMode = false;
-                        isScaleMode =
-                            false; // Disable scale mode when switching modes
-                      });
-                    },
-                    backgroundColor: isTranslateMode ? Colors.green : null,
-                    child: SvgPicture.asset(
-                      'lib/assets/icons/move.svg',
-                      width: 24,
-                      height: 24,
-                    ),
-                  ),
-                  SizedBox(width: 32),
-                  FloatingActionButton(
-                    onPressed: () {
-                      setState(() {
-                        isTranslateMode = false;
-                        isRotateMode = true;
-                        isScaleMode =
-                            false; // Disable scale mode when switching modes
-                      });
-                    },
-                    backgroundColor: isRotateMode ? Colors.green : null,
-                    child: SvgPicture.asset(
-                      'lib/assets/icons/rotate.svg',
-                      width: 24,
-                      height: 24,
-                    ),
-                  ),
-                  SizedBox(width: 32),
-                  FloatingActionButton(
-                    onPressed: () {
-                      setState(() {
-                        isTranslateMode = false;
-                        isRotateMode = false;
-                        isScaleMode = true;
-                      });
-                    },
-                    backgroundColor: isScaleMode ? Colors.green : null,
-                    child: SvgPicture.asset(
-                      'lib/assets/icons/resize.svg',
-                      width: 24,
-                      height: 24,
-                    ),
-                  ),
-                ]),
-          ),
-          Visibility(
-            visible: isScaleMode, // Only show slider when isScaleMode is true
-            child: Positioned(
-              left: 16,
-              bottom: 16,
+    return BlocListener<FurnitureBloc, FurnitureState>(
+      listener: (context, state) {
+
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: Text(widget.title),
+        ),
+        body: Stack(
+          children: [
+            GestureDetector(
+              onPanUpdate: handlePanUpdate,
+              behavior: HitTestBehavior.opaque,
               child: Container(
-                width: screenWidth - 32,
-                child: Slider(
-                  value: _scale,
-                  min: _minScale,
-                  max: _maxScale,
-                  onChanged: (value) {
-                    handleScaleUpdate(value);
-                  },
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image:
+                        AssetImage("lib/assets/images/CAMERA-VIEW_wo_icons.jpg"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+            Positioned(
+              left: _xPosition + initialXPosition,
+              top: _yPosition + initialYPosition,
+              child: Container(
+                width: modelWidth,
+                height: modelHeight,
+                child: Stack(
+                  children: [
+                    Container(
+                      width: modelWidth,
+                      height: modelHeight,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black, width: 2),
+                      ),
+                    ),
+                    // ModelViewer
+                    ModelViewer(
+                      src: 'lib/assets/objects/chair/chair_paint.glb',
+                      alt: 'chair model',
+                      scale: '$_scale $_scale $_scale',
+                      cameraControls: true,
+                    ),
+                    Text(
+                        "  isRotateMode: ${isRotateMode}, \n  stateRotate: ${stateRotate}")
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              left: 32,
+              top: 16,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    FloatingActionButton(
+                      onPressed: () {
+                        setState(() {
+                          isTranslateMode = true;
+                          isRotateMode = false;
+                          isScaleMode =
+                              false; // Disable scale mode when switching modes
+                        });
+                      },
+                      backgroundColor: isTranslateMode ? Colors.green : null,
+                      child: SvgPicture.asset(
+                        'lib/assets/icons/move.svg',
+                        width: 24,
+                        height: 24,
+                      ),
+                    ),
+                    SizedBox(width: 32),
+                    FloatingActionButton(
+                      onPressed: () {
+                        setState(() {
+                          isTranslateMode = false;
+                          isRotateMode = true;
+                          isScaleMode =
+                              false; // Disable scale mode when switching modes
+                        });
+                      },
+                      backgroundColor: isRotateMode ? Colors.green : null,
+                      child: SvgPicture.asset(
+                        'lib/assets/icons/rotate.svg',
+                        width: 24,
+                        height: 24,
+                      ),
+                    ),
+                    SizedBox(width: 32),
+                    FloatingActionButton(
+                      onPressed: () {
+                        setState(() {
+                          isTranslateMode = false;
+                          isRotateMode = false;
+                          isScaleMode = true;
+                        });
+                      },
+                      backgroundColor: isScaleMode ? Colors.green : null,
+                      child: SvgPicture.asset(
+                        'lib/assets/icons/resize.svg',
+                        width: 24,
+                        height: 24,
+                      ),
+                    ),
+                  ]),
+            ),
+            Visibility(
+              visible: isScaleMode, // Only show slider when isScaleMode is true
+              child: Positioned(
+                left: 16,
+                bottom: 16,
+                child: Container(
+                  width: screenWidth - 32,
+                  child: Slider(
+                    value: _scale,
+                    min: _minScale,
+                    max: _maxScale,
+                    onChanged: (value) {
+                      handleScaleUpdate(value);
+                    },
+                  ),
+                ),
+              ),
+            ),
+            Text(context.read<FurnitureBloc>().state.furnitureList.toString()),
+          ],
+        ),
       ),
     );
   }
