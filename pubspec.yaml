@@ -37,7 +37,10 @@ dependencies:
   flutter_bloc: ^8.1.5
   fluttertoast: ^8.2.5
   flutter_svg: ^0.22.0
-  model_viewer_plus:
+  model_viewer_plus: ^1.7.2
+  webview_flutter: ^4.7.0
+  url_launcher: ^6.2.6
+  image_picker: ^1.1.1
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +73,8 @@ flutter:
     - lib/assets/icons/resize.svg
     - lib/assets/icons/rotate.svg
     - lib/assets/objects/chair/chair_paint.glb
+
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:
