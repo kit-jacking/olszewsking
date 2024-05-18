@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:camera/camera.dart';
 import 'package:decoartor/common/bloc/FurnitureBloc.dart';
 import 'package:decoartor/common/bloc/RouterBloc.dart';
 import 'package:decoartor/ui/adamPage/adamPage.dart';
@@ -10,13 +11,21 @@ import 'package:decoartor/ui/tymonPage/tymonPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+
+  // Obtain a list of the available cameras on the device.
+  final cameras = await availableCameras();
+// Get a specific camera from the list of available cameras.
+  final firstCamera = cameras.first;
+
+  runApp(MyApp(camera: firstCamera));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.camera});
+
+  final CameraDescription camera;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +59,7 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           '/': (context) => const MainPage(title: "Login page"),
-          '/igor': (context) => const IgorPage(title: "Igor page"),
+          '/igor': (context) => IgorPage(title: "Igor page", camera: camera),
           '/adam': (context) => AdamPage(title: "Adam page"),
           '/julka': (context) => const JulkaPage(title: "Julka page"),
           '/tymon': (context) => const TymonPage(title: "Ar object"),

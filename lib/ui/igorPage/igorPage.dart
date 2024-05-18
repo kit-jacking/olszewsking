@@ -1,12 +1,14 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
 
 class IgorPage extends StatefulWidget {
-  const IgorPage({super.key, required this.title});
+  const IgorPage({super.key, required this.title, required this.camera});
 
   final String title;
+  final CameraDescription camera;
 
 
   @override
@@ -16,6 +18,33 @@ class IgorPage extends StatefulWidget {
 class _IgorPageState extends State<IgorPage> {
 
   File? _backgroundImage;
+
+  // Do obsługi kamery
+  late CameraController _camController;
+  late Future<void> _initializeCamControllerFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    // To display the current output from the Camera,
+    // create a CameraController.
+    _camController = CameraController(
+      // Get a specific camera from the list of available cameras.
+      widget.camera,
+      // Define the resolution to use.
+      ResolutionPreset.medium,
+    );
+
+    // Next, initialize the controller. This returns a Future.
+    _initializeCamControllerFuture = _camController.initialize();
+  }
+
+  @override
+  void dispose() {
+    // Dispose of the controller when the widget is disposed.
+    _camController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,22 +67,23 @@ class _IgorPageState extends State<IgorPage> {
                         fit: BoxFit.cover
                       )
                     ),
-                    child: Center(
-                      child:
-                        Column(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             ElevatedButton(
-                                onPressed: _getImage, child: Text("open image picker"))
+                                onPressed: _getImage, child: Text("Open image picker")),
+                            ElevatedButton(onPressed: _openCamera, child: Text("Open camera"))
                           ],
                         ),
                     ),
-                ),
             ],
           ),
 
     );
   }
 
+  // Funkcja do otwarcia menu wyboru zdjęcia, które są na urządzeniu
+  // Zmienia stan tła głównego ekranu
   void _getImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? img = await picker.pickImage(source: ImageSource.gallery);
@@ -61,6 +91,10 @@ class _IgorPageState extends State<IgorPage> {
     setState(() {
       _backgroundImage = File(img.path);
     });
+  }
+
+  void _openCamera() async {
+
   }
 }
 
