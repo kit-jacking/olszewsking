@@ -1,10 +1,9 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-
 import '../../common/bloc/RouterBloc.dart';
+import '../../main.dart';
 
 
 class IgorPage extends StatefulWidget {
@@ -17,9 +16,6 @@ class IgorPage extends StatefulWidget {
 }
 
 class _IgorPageState extends State<IgorPage> {
-
-  File? _backgroundImage;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +33,7 @@ class _IgorPageState extends State<IgorPage> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: _backgroundImage == null ? const AssetImage("lib/assets/images/CAMERA-VIEW_wo_icons.jpg") : FileImage(_backgroundImage!) as ImageProvider,
+                        image: backgroundImage == null ? const AssetImage("lib/assets/images/CAMERA-VIEW_wo_icons.jpg") : FileImage(backgroundImage!) as ImageProvider,
                         fit: BoxFit.cover
                       )
                     ),
@@ -63,7 +59,7 @@ class _IgorPageState extends State<IgorPage> {
     final XFile? img = await picker.pickImage(source: ImageSource.gallery);
     if (img == null) return;
     setState(() {
-      _backgroundImage = File(img.path);
+      backgroundImage = File(img.path);
     });
   }
 
@@ -73,45 +69,3 @@ class _IgorPageState extends State<IgorPage> {
           .add(RedirectRouterEvent("/camera"));
   }
 }
-
-
-// KOD DO WEB VIEW - ALE NIE DZIALA Z WEBXR
-// import 'package:flutter/material.dart';
-// import 'package:webview_flutter/webview_flutter.dart';
-//
-// class IgorPage extends StatefulWidget {
-//   const IgorPage({super.key});
-//
-//
-//   @override
-//   State<IgorPage> createState() => _WebViewAppState();
-//
-// }
-//
-// class _WebViewAppState extends State<IgorPage> {
-//   late final WebViewController controller;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     controller = WebViewController()
-//       ..loadFlutterAsset('lib/ui/igorPage/index.html');
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Igor\'s Page'),
-//       ),
-//       body: WebViewWidget(
-//         controller: controller,
-//       ),
-//     );
-//   }
-// }
-//
-
-
-
-

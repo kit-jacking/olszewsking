@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:camera/camera.dart';
@@ -12,6 +13,9 @@ import 'package:decoartor/ui/tymonPage/tymonPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+
+File? backgroundImage;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -20,26 +24,28 @@ void main() async {
 // Get a specific camera from the list of available cameras.
   final firstCamera = cameras.first;
 
+
   runApp(MyApp(camera: firstCamera));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.camera});
+  MyApp({super.key, required this.camera});
 
   final CameraDescription camera;
+
 
   @override
   Widget build(BuildContext context) {
     const List<Color> colorsILike = [
-      Colors.yellow,
-      Colors.purple,
-      Colors.green,
-      Colors.red,
+      // Colors.yellow,
+      // Colors.purple,
+      // Colors.green,
+      // Colors.red,
       Colors.blue,
-      Colors.pink,
-      Colors.brown,
-      Colors.lightGreen,
-      Colors.orange
+      // Colors.pink,
+      // Colors.brown,
+      // Colors.lightGreen,
+      // Colors.orange
     ];
     Color mainColor = colorsILike[Random().nextInt(colorsILike.length)];
 
@@ -63,7 +69,7 @@ class MyApp extends StatelessWidget {
           '/igor': (context) => const IgorPage(title: "Igor page"),
           '/camera': (context) => CameraScreen(camera: camera),
           '/adam': (context) => AdamPage(title: "Adam page"),
-          '/julka': (context) => const JulkaPage(title: "Julka page"),
+          '/julka': (context) => JulkaPage(title: "Julka page"),
           '/tymon': (context) => const TymonPage(title: "Ar object"),
         },
       ),

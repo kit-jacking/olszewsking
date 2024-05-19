@@ -1,6 +1,10 @@
 import 'package:camera/camera.dart';
+import 'package:decoartor/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:io';
+
+import '../../common/bloc/RouterBloc.dart';
 
 // A screen that allows users to take a picture using a given camera.
 
@@ -112,6 +116,26 @@ class DisplayPictureScreen extends StatelessWidget {
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
       body: Image.file(File(imagePath)),
+      floatingActionButton: Row(
+        children: [
+          ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Retake')
+          ),
+          ElevatedButton(
+              onPressed: () {
+                backgroundImage = File(imagePath);
+                context
+                    .read<RouterBloc>()
+                    .add(RedirectRouterEvent("/julka"));
+              },
+              child: const Text('Accept')
+          )
+        ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

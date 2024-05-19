@@ -1,17 +1,18 @@
 import 'package:decoartor/common/bloc/FurnitureBloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 
+import '../../main.dart';
+
 class JulkaPage extends StatefulWidget {
-  const JulkaPage({Key? key, required this.title}) : super(key: key);
+  JulkaPage({super.key, required this.title});
 
   final String title;
 
   @override
-  _JulkaPageState createState() => _JulkaPageState();
+  State<JulkaPage> createState() => _JulkaPageState();
 }
 
 class _JulkaPageState extends State<JulkaPage> {
@@ -74,8 +75,7 @@ class _JulkaPageState extends State<JulkaPage> {
               child: Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image:
-                        AssetImage("lib/assets/images/CAMERA-VIEW_wo_icons.jpg"),
+                    image: backgroundImage == null ? const AssetImage("lib/assets/images/CAMERA-VIEW_wo_icons.jpg") : FileImage(backgroundImage!) as ImageProvider,
                     fit: BoxFit.cover,
                   ),
                 ),
