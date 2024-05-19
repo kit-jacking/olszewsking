@@ -4,6 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:decoartor/common/bloc/FurnitureBloc.dart';
 import 'package:decoartor/common/bloc/RouterBloc.dart';
 import 'package:decoartor/ui/adamPage/adamPage.dart';
+import 'package:decoartor/ui/igorPage/cameraPage.dart';
 import 'package:decoartor/ui/igorPage/igorPage.dart';
 import 'package:decoartor/ui/julkaPage/julkaPage.dart';
 import 'package:decoartor/ui/mainPage/mainPage.dart';
@@ -59,7 +60,8 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           '/': (context) => const MainPage(title: "Login page"),
-          '/igor': (context) => IgorPage(title: "Igor page", camera: camera),
+          '/igor': (context) => const IgorPage(title: "Igor page"),
+          '/camera': (context) => CameraScreen(camera: camera),
           '/adam': (context) => AdamPage(title: "Adam page"),
           '/julka': (context) => const JulkaPage(title: "Julka page"),
           '/tymon': (context) => const TymonPage(title: "Ar object"),
