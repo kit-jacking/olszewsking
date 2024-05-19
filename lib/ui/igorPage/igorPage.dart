@@ -24,31 +24,35 @@ class _IgorPageState extends State<IgorPage> {
             .of(context)
             .colorScheme
             .inversePrimary,
-        title: Text(widget.title),
+        title: Text("Zmień zdjęcie pokoju"),
+        actions: [
+          IconButton(onPressed: () {_acceptBackgroundImageChange(context);}, icon: const Icon(Icons.check))
+        ],
       ),
       body: Stack(
         children: [
-              Container(
-                height: double.infinity,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: backgroundImage == null ? const AssetImage("lib/assets/images/CAMERA-VIEW_wo_icons.jpg") : FileImage(backgroundImage!) as ImageProvider,
-                        fit: BoxFit.cover
-                      )
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            ElevatedButton(
-                                onPressed: _getImage, child: Text("Open image picker")),
-                            ElevatedButton(onPressed: () {_openCamera(context);}, child: Text("Open camera"))
-                          ],
-                        ),
-                    ),
+          Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: backgroundImage == null ? const AssetImage("lib/assets/images/CAMERA-VIEW_wo_icons.jpg") : FileImage(backgroundImage!) as ImageProvider,
+                    fit: BoxFit.cover
+                )
+            )
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(onPressed: _getImage, child: const Text("Wybierz zdjęcie")),
+                ElevatedButton(onPressed: () {_openCamera(context);}, child: const Text("Zrób nowe zdjęcie"))
+              ],
+            ),
+          )
             ],
           ),
-
     );
   }
 
@@ -67,5 +71,11 @@ class _IgorPageState extends State<IgorPage> {
       context
           .read<RouterBloc>()
           .add(RedirectRouterEvent("/camera"));
+  }
+
+  void _acceptBackgroundImageChange(BuildContext context) {
+    context
+        .read<RouterBloc>()
+        .add(RedirectRouterEvent("/julka"));
   }
 }

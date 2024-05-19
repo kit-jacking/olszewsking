@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 
+import '../../common/bloc/RouterBloc.dart';
+
 class JulkaPage extends StatefulWidget {
   JulkaPage({super.key, required this.title});
 
@@ -74,12 +76,35 @@ class _JulkaPageState extends State<JulkaPage> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
+    void redirectToBackgroundChange(BuildContext context) {
+      context
+          .read<RouterBloc>()
+          .add(RedirectRouterEvent("/igor"));
+    }
+
+    void redirectToFurnitureList(BuildContext context) {
+      context
+          .read<RouterBloc>()
+          .add(RedirectRouterEvent("/adam"));
+    }
+
     return BlocListener<FurnitureBloc, FurnitureState>(
       listener: (context, state) {},
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text(widget.title),
+          actions: [
+            IconButton(
+                onPressed: () {redirectToBackgroundChange(context);},
+                icon: const Icon(Icons.camera_alt_outlined)
+            ),
+            IconButton(
+              onPressed: () {redirectToFurnitureList(context);},
+              icon: const Icon(Icons.add)
+            )
+
+          ],
         ),
         body: Stack(
           children: [
