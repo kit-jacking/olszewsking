@@ -1,12 +1,9 @@
 import 'package:decoartor/common/bloc/FurnitureBloc.dart';
-import 'package:decoartor/common/utils/toastUtils.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:decoartor/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
-
-import '../../main.dart';
 
 class JulkaPage extends StatefulWidget {
   JulkaPage({super.key, required this.title});
@@ -18,7 +15,6 @@ class JulkaPage extends StatefulWidget {
 }
 
 class _JulkaPageState extends State<JulkaPage> {
-  double _scale = 0.5; // Initial scale value
   double _minScale = 0.1; // Minimal scale value
   double _maxScale = 1.2; // Maximal scale value
 
@@ -27,31 +23,26 @@ class _JulkaPageState extends State<JulkaPage> {
   bool isRotateMode = false;
   bool isScaleMode = false;
 
-  double _xPosition = 0;
-  double _yPosition = 0;
+  static int maxNumberOfPiecesOfFurniture = 10;
 
-  List<double> xPositions = [0, 0, 0, 0, 0, 0];
-  List<double> yPositions = [0, 0, 0, 0, 0, 0];
+  static const double defaultPosition = 0; // Initial scale value
+  static const double defaultScale = 0.5; // Initial scale value
 
-  int selectedModel = 5;
+  List<double> xPositions = List.filled(maxNumberOfPiecesOfFurniture, defaultPosition);
+  List<double> yPositions = List.filled(maxNumberOfPiecesOfFurniture, defaultPosition);
+  List<double> scales = List.filled(maxNumberOfPiecesOfFurniture, defaultScale);
 
-  selectModel(int i) {
-    if (i >= xPositions.length) {
-      selectedModel = 0;
-      return;
-    }
-    if (i < 0) {
-      selectedModel = xPositions.length - 1;
-      return;
-    }
-    selectedModel = i;
+  int selectedModel = 0;
+
+  void handleScaleUpdate(double value) {
+    setState(() {
+      scales[selectedModel] = value.clamp(_minScale, _maxScale);
+    });
   }
 
   void handlePanUpdate(DragUpdateDetails details) {
     if (isTranslateMode) {
       setState(() {
-        _xPosition += details.delta.dx;
-        _yPosition += details.delta.dy;
         xPositions[selectedModel] += details.delta.dx;
         yPositions[selectedModel] += details.delta.dy;
       });
@@ -62,22 +53,26 @@ class _JulkaPageState extends State<JulkaPage> {
     }
   }
 
-  void handleScaleUpdate(double value) {
-    setState(() {
-      _scale = value.clamp(_minScale, _maxScale);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final modelsFilePaths =
+        context.read<FurnitureBloc>().state.furnitureList;
+    final numberOfPiecesOfFurniture = modelsFilePaths.length;
+
+    selectModel(int i) {
+      if (i >= numberOfPiecesOfFurniture) {
+        selectedModel = 0;
+        return;
+      }
+      if (i < 0) {
+        selectedModel = numberOfPiecesOfFurniture - 1;
+        return;
+      }
+      selectedModel = i;
+    }
+
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-
-    double modelWidth = screenWidth * _scale;
-    double modelHeight = screenHeight * _scale;
-
-    double initialXPosition = (screenWidth - screenWidth) / 2;
-    double initialYPosition = (screenHeight - screenHeight) / 2;
 
     return BlocListener<FurnitureBloc, FurnitureState>(
       listener: (context, state) {},
@@ -103,7 +98,8 @@ class _JulkaPageState extends State<JulkaPage> {
                 ),
               ),
             ),
-            MyModel(xPositions[5], yPositions[5], selectedModel == 5),
+            for (var i = 0; i < numberOfPiecesOfFurniture; i++)
+              MyModel(xPositions[i], yPositions[i], scales[i], selectedModel == i, modelsFilePaths[i]),
             Column(
               children: [
                 Padding(
@@ -200,7 +196,7 @@ class _JulkaPageState extends State<JulkaPage> {
                 child: SizedBox(
                   width: screenWidth - 32,
                   child: Slider(
-                    value: _scale,
+                    value: scales[selectedModel],
                     min: _minScale,
                     max: _maxScale,
                     onChanged: (value) {
@@ -210,11 +206,12 @@ class _JulkaPageState extends State<JulkaPage> {
                 ),
               ),
             ),
-            Text(context.read<FurnitureBloc>().state.furnitureList.toString()),
             const SizedBox(
               height: 10,
             ),
-            Text("Currently selected model: ${selectedModel}"),
+            Center(
+                child: Text(
+                    "Currently selected model: ${selectedModel}\n${context.read<FurnitureBloc>().state.furnitureList.toString()}")),
           ],
         ),
       ),
@@ -223,11 +220,13 @@ class _JulkaPageState extends State<JulkaPage> {
 }
 
 class MyModel extends StatefulWidget {
-  double _xPosition;
-  double _yPosition;
+  double xPosition;
+  double yPosition;
   bool isSelected;
+  double scale;
+  String modelFilePath;
 
-  MyModel(this._xPosition, this._yPosition, this.isSelected);
+  MyModel(this.xPosition, this.yPosition, this.scale, this.isSelected, this.modelFilePath);
 
   @override
   State<MyModel> createState() => _MyModelState();
@@ -246,14 +245,14 @@ class _MyModelState extends State<MyModel> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    double modelWidth = screenWidth * _scale;
-    double modelHeight = screenHeight * _scale;
+    double modelWidth = screenWidth * widget.scale;
+    double modelHeight = screenHeight * widget.scale;
 
     double initialXPosition = (screenWidth - screenWidth) / 2;
     double initialYPosition = (screenHeight - screenHeight) / 2;
     return Positioned(
-      left: this.widget._xPosition + initialXPosition,
-      top: this.widget._yPosition + initialYPosition,
+      left: widget.xPosition + initialXPosition,
+      top: widget.yPosition + initialYPosition,
       child: SizedBox(
         width: modelWidth,
         height: modelHeight,
@@ -270,7 +269,7 @@ class _MyModelState extends State<MyModel> {
             ),
             // ModelViewer
             ModelViewer(
-              src: 'lib/assets/objects/chair/chair_paint.glb',
+              src: widget.modelFilePath,
               alt: 'chair model',
               scale: '$_scale $_scale $_scale',
               cameraControls: true,
