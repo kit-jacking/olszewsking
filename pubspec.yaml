@@ -74,6 +74,7 @@ flutter:
     - lib/assets/icons/resize.svg
     - lib/assets/icons/rotate.svg
     - lib/assets/objects/chair/chair_paint.glb
+    - lib/assets/objects/
 
 
 
