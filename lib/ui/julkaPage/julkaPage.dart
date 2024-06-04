@@ -234,9 +234,9 @@ class _JulkaPageState extends State<JulkaPage> {
             const SizedBox(
               height: 10,
             ),
-            Center(
-                child: Text(
-                    "Currently selected model: ${selectedModel}\n${context.read<FurnitureBloc>().state.furnitureList.toString()}")),
+            // Center(
+            //     child: Text(
+            //         "Currently selected model: ${selectedModel}\n${context.read<FurnitureBloc>().state.furnitureList.toString()}")),
           ],
         ),
       ),
@@ -288,7 +288,7 @@ class _MyModelState extends State<MyModel> {
               height: modelHeight,
               decoration: BoxDecoration(
                 border: Border.all(
-                    color: widget.isSelected ? Colors.blue : Colors.black,
+                    color: widget.isSelected ? Colors.blue : Colors.transparent,
                     width: 2),
               ),
             ),
@@ -299,8 +299,7 @@ class _MyModelState extends State<MyModel> {
               scale: '$_scale $_scale $_scale',
               cameraControls: true,
             ),
-            Text(
-                "  isRotateMode: ${isRotateMode}, \n  stateRotate: ${stateRotate}, \n  isSelected: ${widget.isSelected}")
+            // Text("  isRotateMode: ${isRotateMode}, \n  stateRotate: ${stateRotate}, \n  isSelected: ${widget.isSelected}")
           ],
         ),
       ),
