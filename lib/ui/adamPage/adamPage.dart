@@ -9,28 +9,25 @@ class AdamPage extends StatelessWidget {
   final String title;
 
   final List<String> entries = <String>[
-    'Krzesło Biurowe 211347',
-    'MÖTH',
-    'Matilda',
-    'Box robot',
+    'Krzesło drewniane',
+    'Wysoka lampa',
+    'Drewniana ława',
   ];
   final List<String> description = <String>[
-    'Wybitne, obrotowe krzesło biurowe o jakże ujmującym numerze 211347. Dostępne w wielu szałowych kolorach takich jak: niebieski i różowy!',
-    'Taka jakaś duża lampa wyeksportowana z painta.',
-    'Pobrałem model jakiejś dziewczyny, bo był za darmo i mało ważył. Nie mam praw autorskich, ale w sumie wygląda naawet ładnie.',
-    'Taki słodki robocik OMG! Założyłem konto na stronce tylko żeby go pobrać. W nazwie ma, że zrobiony przez AI.'
+    "To drewniane krzesło na pewno przypodoba się każdemu prowadzącemu właśnie elevator pitch. Jest dobre dla kręgosłupa.",
+    "Wysoka lampa przydatna jest w każdym pomieszczeniu. Idealna do sprawdzania kolokwiów swoich studentów późnymi wieczorami.",
+    "Ława z litego drewna, malowana na ciemnobrązowy kolor. Zgra się z korytarzami gmachu głównego PW, albo z ogródkiem na twojej działce!",
   ];
   final List<String> images = <String>[
-    "lib/assets/images/chair-4281511_1280.png",
-    "lib/assets/images/table-lamp-2320604_1280.png",
-    "lib/assets/images/antique-961102_1280.png",
-    "lib/assets/images/antique-961102_1280.png"
+    "lib/assets/images/krzeslo.png",
+    "lib/assets/images/lampa.png",
+    "lib/assets/images/lawka.png",
+
   ];
   final List<String> modelFilePaths = <String>[
     "lib/assets/objects/chair/chair_paint.glb",
     "lib/assets/objects/lamp_paint.glb",
-    "lib/assets/objects/matilda.glb",
-    "lib/assets/objects/box_robot_made_by_ai.glb",
+    "lib/assets/objects/bench_dark_wood.glb",
   ];
 
   void addItem() {

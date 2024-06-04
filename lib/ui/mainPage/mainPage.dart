@@ -28,28 +28,31 @@ class MainPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const Text("Wybierz gdzie cię przekierować :)"),
-                  SizedBox(height: 20,),
-                  ElevatedButton(
-                      onPressed: () => {
-                            context
-                                .read<RouterBloc>()
-                                .add(RedirectRouterEvent("/igor"))
-                          },
-                      child: Text("Strona Igora")),
-                  ElevatedButton(
-                      onPressed: () => {
-                            context
-                                .read<RouterBloc>()
-                                .add(RedirectRouterEvent("/adam"))
-                          },
-                      child: Text("Strona Adama")),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  // ElevatedButton(
+                  //     onPressed: () => {
+                  //           context
+                  //               .read<RouterBloc>()
+                  //               .add(RedirectRouterEvent("/igor"))
+                  //         },
+                  //     child: Text("Strona Igora")),
                   ElevatedButton(
                       onPressed: () => {
                             context
                                 .read<RouterBloc>()
                                 .add(RedirectRouterEvent("/julka"))
                           },
-                      child: Text("Strona Julki")),
+                      child: Text("Wizualizacja 3D")),
+                  ElevatedButton(
+                      onPressed: () => {
+                            context
+                                .read<RouterBloc>()
+                                .add(RedirectRouterEvent("/adam"))
+                          },
+                      child: Text("Lista mebli")),
+
                   // ElevatedButton(
                   //     onPressed: () => {
                   //       context
