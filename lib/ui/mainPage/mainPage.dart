@@ -27,7 +27,7 @@ class MainPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const Text("Wybierz gdzie cię przekierować :)"),
+                  const Text("Witaj w DecoARtor!"),
                   SizedBox(
                     height: 20,
                   ),
