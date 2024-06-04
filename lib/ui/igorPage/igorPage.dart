@@ -46,7 +46,7 @@ class _IgorPageState extends State<IgorPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(onPressed: _getImage, child: const Text("Wybierz zdjęcie")),
+                ElevatedButton(onPressed: () => _getImage(context), child: const Text("Wybierz zdjęcie")),
                 ElevatedButton(onPressed: () {_openCamera(context);}, child: const Text("Zrób nowe zdjęcie"))
               ],
             ),
@@ -58,13 +58,18 @@ class _IgorPageState extends State<IgorPage> {
 
   // Funkcja do otwarcia menu wyboru zdjęcia, które są na urządzeniu
   // Zmienia stan tła głównego ekranu
-  void _getImage() async {
+  void _getImage(BuildContext context) async {
     final ImagePicker picker = ImagePicker();
     final XFile? img = await picker.pickImage(source: ImageSource.gallery);
     if (img == null) return;
     setState(() {
       backgroundImage = File(img.path);
     });
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+    context
+        .read<RouterBloc>()
+        .add(RedirectRouterEvent("/julka"));
   }
 
   void _openCamera(BuildContext context) {

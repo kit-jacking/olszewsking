@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:io';
 
 import '../../common/bloc/RouterBloc.dart';
+import '../julkaPage/julkaPage.dart';
 
 // A screen that allows users to take a picture using a given camera.
 
@@ -81,7 +82,7 @@ class TakePictureScreenState extends State<CameraScreen> {
             if (!context.mounted) return;
 
             // If the picture was taken, display it on a new screen.
-            await Navigator.of(context).push(
+            await Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (context) => DisplayPictureScreen(
                   // Pass the automatically generated path to
@@ -125,11 +126,21 @@ class DisplayPictureScreen extends StatelessWidget {
               child: const Text('Retake')
           ),
           ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 backgroundImage = File(imagePath);
+                
+
+                // await Navigator.of(context).pushReplacementNamed("/julka");
+
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
                 context
                     .read<RouterBloc>()
                     .add(RedirectRouterEvent("/julka"));
+
+                // Navigator.of(context).popUntil((route) => route == ModalRoute.withName('/julka'));
+                // Navigator.of(context).popUntil(context, ModalRoute.withName('/julka'));
               },
               child: const Text('Accept')
           )
