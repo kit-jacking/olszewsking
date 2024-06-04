@@ -62,7 +62,7 @@ class _JulkaPageState extends State<JulkaPage> {
     final numberOfPiecesOfFurniture = modelsFilePaths.length;
 
     selectModel(int i) {
-      if (i >= numberOfPiecesOfFurniture) {
+      if (i >= numberOfPiecesOfFurniture || numberOfPiecesOfFurniture == 0) {
         selectedModel = 0;
         return;
       }
